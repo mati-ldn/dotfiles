@@ -1,5 +1,9 @@
 # Alias to navigate to your dotfile folder
 alias dot='cd ~/dotfiles'
+alias crv='cd ~/my_projects/cryptorv'
+
+# envs
+alias activ='source ~/my_projects/cryptorv/cryptorv/bin/activate'
 
 # Set a colorful prompt
 PS1='\[\033[01;34m\]\u@\h:\w\$ \[\033[00m\]'
