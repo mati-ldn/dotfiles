@@ -18,6 +18,9 @@ Plugin 'jistr/vim-nerdtree-tabs'
 "Python
 Plugin 'python-mode/python-mode'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'ycm-core/YouCompleteMe'
+
+Plugin 'jpalardy/vim-slime'
 
 call vundle#end()
 
@@ -41,4 +44,12 @@ nnoremap <leader>nh :nohlsearch<CR>
 
 let NERDTreeIgnore=['\pyc$', '\~$']
 nnoremap <leader>nt :NERDTreeTabsToggle<CR>
+
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 
