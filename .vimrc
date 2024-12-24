@@ -13,7 +13,7 @@ Plugin 'reewr/vim-monokai-phoenix'
 
 " File system
 Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdree-tabs'
+Plugin 'jistr/vim-nerdtree-tabs'
 
 "Python
 Plugin 'python-mode/python-mode'
