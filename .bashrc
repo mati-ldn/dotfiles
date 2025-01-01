@@ -21,7 +21,9 @@ alias dot='cd ~/dotfiles'
 alias crv='cd ~/my_projects/cryptorv'
 
 # envs
-alias activ='source ~/my_projects/cryptorv/cryptorv/bin/activate'
+# alias activ='source ~/.virtualenvs/cryptorv/bin/activate'
+alias activ='conda activate cryptorv'
+alias base='conda activate base'
 
 # Common aliases
 alias ll='ls -alF'
