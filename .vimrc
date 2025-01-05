@@ -20,6 +20,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 "Plugin 'davidhalter/jedi-vim'
 "Plugin 'ycm-core/YouCompleteMe'
 
+" Others
 Plugin 'jpalardy/vim-slime'
 
 call vundle#end()
@@ -34,18 +35,31 @@ filetype plugin indent on
 set nobackup
 set noswapfile
 set number
-set guifont=Monaco:h8
+set guifont=Consolas:h10
 set colorcolumn=80
 set hls
+set showmode
+set clipboard+=unnamedplus
 
+set splitbelow
+set splitright
+
+nnoremap <leader>rr :source ~/.vimrc<CR>
 nmap <buffer> <leader>r <Esc>:w<CR>:!clear;ipython %<CR>
+nmap <buffer> <leader>d <Esc>:w<CR>:!clear;ipython --pdb %<CR>
+"nmap <buffer> <leader>d : terminal ipython --pdb %<CR>
 nmap <buffer> <leader>b oimport ipdb;ipdb.set_trace(context=5)<ESC>
+nnoremap <leader>bl :!black --skip-string-normalization --line-length=80 %<cr>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>t :stop<CR>
+nnoremap <leader>ls :ls<CR>
 nmap <leader>f :Explore<CR>
 nmap <leader><s-f> :edit<CR>
 nnoremap <leader>aa ggVG
 nnoremap <leader>nh :nohlsearch<CR>
+
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
 
 let g:netrw_altv = 1
 let g:netrw_dirhistmax = 0
@@ -60,7 +74,47 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Disable arrow keys in normal mode
+nnoremap <Up>    <Nop>
+nnoremap <Down>  <Nop>
+nnoremap <Left>  <Nop>
+nnoremap <Right> <Nop>
+
+" Disable arrow keys in insert mode
+inoremap <Up>    <Nop>
+inoremap <Down>  <Nop>
+inoremap <Left>  <Nop>
+inoremap <Right> <Nop>
+
+" Disable arrow keys in visual mode
+vnoremap <Up>    <Nop>
+vnoremap <Down>  <Nop>
+vnoremap <Left>  <Nop>
+vnoremap <Right> <Nop>
+
+
+function! OpenTmuxPaneAndRunAliasThenIPython()
+    " Open a new tmux pane below, source aliases, and run ipython
+        let l:command = "tmux split-window -v 'bash -i -c \"activ && ipython; exec bash\"'"
+	silent! call system(l:command)
+endfunction
+
+" Map the function to a key (e.g., <leader>a for alias + ipython)
+nnoremap <leader>i :call OpenTmuxPaneAndRunAliasThenIPython()<CR>
+
+noremap <leader>yy :%w !clip.exe<CR>
+nnoremap <leader>y :call CopyLineOrSelection()<CR>
+
+function! CopyLineOrSelection()
+  if mode() ==# 'v'
+    normal! "+y
+  else
+    normal! "+yy
+  endif
+endfunction
+
 " split
 let g:slime_target = "tmux"    " For tmux users
 let g:slime_python_ipython=1
 let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":.1"}
+

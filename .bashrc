@@ -1,4 +1,4 @@
-alias re='source ~/.bashrc'
+alias rr='source ~/.bashrc'
 
 
 # French flag colors
@@ -15,6 +15,8 @@ git_branch() {
 # Set prompt
 PS1="${BLUE}\u${BLUE}@${BLUE}\h${WHITE}:${WHITE}\w${RED} $(git_branch) $ ${RESET}"
 
+set -o vi
+echo -e "\033]11;#000000\007"
 
 # Alias to navigate to your dotfile folder
 alias dot='cd ~/dotfiles'
