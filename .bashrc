@@ -1,4 +1,4 @@
-alias rr='source ~/.bashrc'
+alias re='source ~/.bashrc'
 
 
 # French flag colors

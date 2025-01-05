@@ -16,9 +16,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 
 "Python
-"Plugin 'python-mode/python-mode'
+Plugin 'python-mode/python-mode'
 "Plugin 'davidhalter/jedi-vim'
-"Plugin 'ycm-core/YouCompleteMe'
 
 " Others
 Plugin 'jpalardy/vim-slime'
@@ -40,15 +39,17 @@ set colorcolumn=80
 set hls
 set showmode
 set clipboard+=unnamedplus
+set vb
+set showmatch
 
 set splitbelow
 set splitright
 
-nnoremap <leader>rr :source ~/.vimrc<CR>
+nnoremap <leader>re :source ~/.vimrc<CR>
 nmap <buffer> <leader>r <Esc>:w<CR>:!clear;ipython %<CR>
 nmap <buffer> <leader>d <Esc>:w<CR>:!clear;ipython --pdb %<CR>
 "nmap <buffer> <leader>d : terminal ipython --pdb %<CR>
-nmap <buffer> <leader>b oimport ipdb;ipdb.set_trace(context=5)<ESC>
+nmap <buffer> <leader>b Oimport ipdb;ipdb.set_trace(context=5)<ESC>
 nnoremap <leader>bl :!black --skip-string-normalization --line-length=80 %<cr>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>t :stop<CR>
@@ -60,6 +61,9 @@ nnoremap <leader>nh :nohlsearch<CR>
 
 nnoremap [<space> O<esc>j
 nnoremap ]<space> o<esc>k
+
+noremap <s-l> gt
+noremap <s-h> gT
 
 let g:netrw_altv = 1
 let g:netrw_dirhistmax = 0
@@ -113,8 +117,24 @@ function! CopyLineOrSelection()
   endif
 endfunction
 
-" split
+" for vim-slime 
 let g:slime_target = "tmux"    " For tmux users
 let g:slime_python_ipython=1
 let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":.1"}
+
+" python-mode
+let g:pymode = 1
+let g:pymode_python = 'python3'
+let g:pymode_run = 1
+let g:pymode_breakpoint = 1
+let g:pymode_folding = 0
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options = 1
+let g:pymode_lint = 0
+
+" jedi-vim
+" Enable autocompletion
+"let g:jedi#completions_enabled = 1
+" Use the same Python interpreter as the current environment
+"let g:jedi#use_tabs_not_buffers = 1
 
