@@ -18,6 +18,7 @@ PS1="${BLUE}\u${BLUE}@${BLUE}\h${WHITE}:${WHITE}\w${RED} $(git_branch) $ ${RESET
 set -o vi
 echo -e "\033]11;#000000\007"
 
+alias more='wls.exe ~'
 # Alias to navigate to your dotfile folder
 alias dot='cd ~/dotfiles'
 alias crv='cd ~/my_projects/cryptorv'

@@ -53,6 +53,7 @@ nmap <buffer> <leader>bb Oimport ipdb;ipdb.set_trace(context=5)<ESC>
 nnoremap <leader>bl :!black --skip-string-normalization --line-length=80 %<cr>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>t :stop<CR>
+nnoremap <leader>q :q<CR>
 nnoremap <leader>ls :ls<CR>
 nmap <leader>f :Explore<CR>
 nmap <leader><s-f> :edit<CR>
