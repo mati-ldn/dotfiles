@@ -25,7 +25,7 @@ alias crv='cd ~/my_projects/cryptorv'
 
 # envs
 # alias activ='source ~/.virtualenvs/cryptorv/bin/activate'
-alias activ='conda activate cryptorv'
+alias e1='conda activate cryptorv'
 alias base='conda activate base'
 
 # Common aliases
@@ -48,3 +48,7 @@ alias glp='git log -p'
 alias gls='git log --stat'
 alias gd='git diff'
 alias gdc='git diff --cached'
+
+function gcp() {
+    git commit -m "$1" && git push
+}

@@ -49,7 +49,7 @@ nnoremap <leader>re :source ~/.vimrc<CR>
 nmap <buffer> <leader>rr <Esc>:w<CR>:!clear;ipython %<CR>
 nmap <buffer> <leader>dd <Esc>:w<CR>:!clear;ipython --pdb %<CR>
 "nmap <buffer> <leader>d : terminal ipython --pdb %<CR>
-nmap <buffer> <leader>bb Oimport ipdb;ipdb.set_trace(context=5)<ESC>
+nmap <buffer> <leader>bb Obreakpoint()<ESC>
 nnoremap <leader>bl :!black --skip-string-normalization --line-length=80 %<cr>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>t :stop<CR>
