@@ -1,4 +1,5 @@
 set nocompatible
+filetype plugin on
 filetype off
 
 let mapleader= ","
@@ -16,11 +17,12 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 
 "Python
+Plugin 'ycm-core/YouCompleteMe'
 "Plugin 'python-mode/python-mode'
 "Plugin 'davidhalter/jedi-vim'
 
 " Others
-Plugin 'jpalardy/vim-slime'
+"Plugin 'jpalardy/vim-slime'
 
 call vundle#end()
 
@@ -37,10 +39,12 @@ set number
 set guifont=Consolas:h10
 set colorcolumn=80
 set hls
+set incsearch
 set showmode
 set clipboard+=unnamedplus
 set vb
 set showmatch
+set history=500
 
 set splitbelow
 set splitright
@@ -59,6 +63,12 @@ nmap <leader>f :Explore<CR>
 nmap <leader><s-f> :edit<CR>
 nnoremap <leader>aa ggVG
 nnoremap <leader>nh :nohlsearch<CR>
+
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
 
 nnoremap [<space> O<esc>j
 nnoremap ]<space> o<esc>k

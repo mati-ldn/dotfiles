@@ -22,11 +22,13 @@ alias more='wls.exe ~'
 # Alias to navigate to your dotfile folder
 alias dot='cd ~/dotfiles'
 alias crv='cd ~/my_projects/cryptorv'
+alias crv2='streamlit run ~/my_projects/cryptorv/home.py'
 
 # envs
 # alias activ='source ~/.virtualenvs/cryptorv/bin/activate'
 alias e1='conda activate cryptorv'
 alias base='conda activate base'
+
 
 # Common aliases
 alias ll='ls -alF'
@@ -48,6 +50,7 @@ alias glp='git log -p'
 alias gls='git log --stat'
 alias gd='git diff'
 alias gdc='git diff --cached'
+alias gre='git restore'
 
 function gcp() {
     git commit -m "$1" && git push
