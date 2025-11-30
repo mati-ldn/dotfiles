@@ -163,7 +163,7 @@ let g:slime_default_config = {
 vmap <C-c><C-c> <Plug>SlimeRegionSend
 nmap <C-c><C-c> <Plug>SlimeLineSend
 
-nnoremap <leader>r :%y<CR> :SlimeSend0 @*<CR>
+nnoremap <leader>r :w<CR>ggVG<Plug>SlimeRegionSend<CR>
 
 " =====================================================
 " Toggle comment
