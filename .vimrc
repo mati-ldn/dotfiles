@@ -8,7 +8,7 @@ set nobackup
 set noswapfile
 set history=500
 set number
-set clipboard+=unnnamedplus
+set clipboard+=unnamedplus
 set colorcolumn=80
 set hlsearch
 set incsearch
@@ -18,6 +18,8 @@ set visualbell
 set splitbelow splitright
 set updatetime=300
 set guifont=Consolas:h10
+set scrolloff=3
+set sidescrolloff=5
 
 " =====================================================
 " Leader keys
@@ -26,7 +28,7 @@ let mapleader=" "
 let maplocalleader=","
 
 " =====================================================
-" Plugin manager — Vundle
+" Plugin manager – Vundle
 " =====================================================
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -43,17 +45,17 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " Git
 Plugin 'tpope/vim-fugitive'
 
-" Bar
+" Status bar
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
+" Tmux integration
 Plugin 'jpalardy/vim-slime'
 
-" Completion (make sure to compile after install)
+" Completion (optional)
 " Plugin 'ycm-core/YouCompleteMe'
 
 call vundle#end()
-
 filetype plugin indent on
 
 " =====================================================
@@ -71,13 +73,14 @@ endtry
 let g:netrw_altv = 1
 let g:netrw_dirhistmax = 0
 
-
-set laststatus=2                      " Always show status line
-let g:airline_powerline_fonts = 1     " Enable fancy separators/icons
-let g:airline_theme = 'molokai'       " Try matching your colorscheme
-let g:airline#extensions#tabline#enabled = 1  " Show buffer tabs at top
-let g:airline#extensions#branch#enabled = 1   " Show git branch
-
+" =====================================================
+" Airline settings
+" =====================================================
+set laststatus=2
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'molokai'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#branch#enabled = 1
 
 " =====================================================
 " NERDTree
@@ -94,10 +97,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-noremap <S-l> gt
-noremap <S-h> gT
-nnoremap <S-L> :tabnext<CR>
-nnoremap <S-H> :tabprevious<CR>
+nnoremap <S-l> :tabnext<CR>
+nnoremap <S-h> :tabprevious<CR>
 
 nnoremap [<space> O<esc>j
 nnoremap ]<space> o<esc>k
@@ -115,14 +116,18 @@ nnoremap <leader>nh :nohlsearch<CR>
 nmap <leader>f :Explore<CR>
 nmap <leader>F :edit<CR>
 
-" Python run mappings (buffer local)
-autocmd FileType python nmap <buffer> <leader>rr <Esc>:w<CR>:!clear; ipython %<CR>
-autocmd FileType python nmap <buffer> <leader>dd <Esc>:w<CR>:!clear; ipython --pdb %<CR>
-autocmd FileType python nmap <buffer> <leader>bb Obreakpoint()<ESC>
+" =====================================================
+" Python run mappings (buffer-local)
+" =====================================================
+autocmd FileType python nnoremap <buffer> <leader>rr :w<CR>:!clear && ipython % &<CR>
+autocmd FileType python nnoremap <buffer> <leader>dd :w<CR>:!clear && ipython --pdb % &<CR>
+autocmd FileType python nnoremap <buffer> <leader>bb Obreakpoint()<ESC>
 
 nnoremap <leader>bl :!black --skip-string-normalization --line-length=80 %<CR>
 
-" Yank shortcuts
+" =====================================================
+" Yank / Clipboard
+" =====================================================
 nnoremap <leader>y :call CopyLineOrSelection()<CR>
 nnoremap <leader>yy :%w !clip.exe<CR>
 
@@ -146,7 +151,7 @@ nnoremap <leader>i :call OpenTmuxPaneAndRun()<CR>
 nnoremap <C-\><C-\> :call system("tmux kill-pane -t :.1")<CR>
 
 " =====================================================
-" Vim-slime (only if installed)
+" Vim-slime
 " =====================================================
 let g:slime_target = "tmux"
 let g:slime_python_ipython = 1
@@ -155,34 +160,30 @@ let g:slime_default_config = {
 \ "target_pane": ":.1"
 \ }
 
-" Optional: make visual selection send code
 vmap <C-c><C-c> <Plug>SlimeRegionSend
 nmap <C-c><C-c> <Plug>SlimeLineSend
 
-" Send entire buffer to tmux console via slime
 nnoremap <leader>r :%y<CR> :SlimeSend0 @*<CR>
-" Toggle Python comments for the current line or a visual range
+
+" =====================================================
+" Toggle comment
+" =====================================================
 function! ToggleComment(...) range
   for lnum in range(a:firstline, a:lastline)
     let l:line = getline(lnum)
     if l:line =~ '^\s*#'
-      " Uncomment
       call setline(lnum, substitute(l:line, '^\(\s*\)#', '\1', ''))
     else
-      " Comment
       call setline(lnum, substitute(l:line, '^\(\s*\)', '\1#', ''))
     endif
   endfor
 endfunction
 
-" Normal mode
 nnoremap <silent> <leader>/ :call ToggleComment()<CR>
-
-" Visual mode (works on ALL selected lines)
 xnoremap <silent> <leader>/ :<C-u>call ToggleComment()<CR>
 
 " =====================================================
-" Python-mode settings (safe guard)
+" Python-mode settings (optional)
 " =====================================================
 if exists("g:pymode")
   let g:pymode_python = 'python3'
@@ -203,8 +204,11 @@ for mode in ['n','i','v']
   execute mode . "noremap <Right> <Nop>"
 endfor
 
+" =====================================================
+" Git shortcuts
+" =====================================================
 nnoremap <leader>gs :!git status<CR>
-nnoremap <leader>gc :!git checkout<CR>
+nnoremap <leader>gco :!git checkout<CR>
 nnoremap <leader>gb :!git branch<CR>
 nnoremap <leader>ga :!git add %<CR>
 nnoremap <leader>gc :!git commit<CR>
@@ -216,7 +220,8 @@ nnoremap <leader>gls :!git log --stat<CR>
 nnoremap <leader>gd :!git diff %<CR>
 nnoremap <leader>gdc :!git diff --cached<CR>
 nnoremap <leader>gre :!git restore<CR>
-" Git Commit + Push shortcut (gcp)
+
+" Git commit + push shortcut
 command! Gcp call GitCommitPush()
 function! GitCommitPush()
   let msg = input("Commit message: ")
@@ -224,10 +229,7 @@ function! GitCommitPush()
     echo "Commit cancelled: empty message"
     return
   endif
-
   execute "!git add . && git commit -m " . shellescape(msg) . " && git push"
 endfunction
-
-" Optional: map it to a key combo too (leader g)
 nnoremap <Leader>gcp :Gcp<CR>
 
