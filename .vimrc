@@ -143,6 +143,8 @@ function! OpenTmuxPaneAndRun()
 endfunction
 nnoremap <leader>i :call OpenTmuxPaneAndRun()<CR>
 
+nnoremap <C-\><C-\> :call system("tmux kill-pane -t :.1")<CR>
+
 " =====================================================
 " Vim-slime (only if installed)
 " =====================================================
@@ -157,6 +159,27 @@ let g:slime_default_config = {
 vmap <C-c><C-c> <Plug>SlimeRegionSend
 nmap <C-c><C-c> <Plug>SlimeLineSend
 
+" Send entire buffer to tmux console via slime
+nnoremap <leader>r :%y<CR> :SlimeSend0 @*<CR>
+" Toggle Python comments for the current line or a visual range
+function! ToggleComment(...) range
+  for lnum in range(a:firstline, a:lastline)
+    let l:line = getline(lnum)
+    if l:line =~ '^\s*#'
+      " Uncomment
+      call setline(lnum, substitute(l:line, '^\(\s*\)#', '\1', ''))
+    else
+      " Comment
+      call setline(lnum, substitute(l:line, '^\(\s*\)', '\1#', ''))
+    endif
+  endfor
+endfunction
+
+" Normal mode
+nnoremap <silent> <leader>/ :call ToggleComment()<CR>
+
+" Visual mode (works on ALL selected lines)
+xnoremap <silent> <leader>/ :<C-u>call ToggleComment()<CR>
 
 " =====================================================
 " Python-mode settings (safe guard)
@@ -183,13 +206,28 @@ endfor
 nnoremap <leader>gs :!git status<CR>
 nnoremap <leader>gc :!git checkout<CR>
 nnoremap <leader>gb :!git branch<CR>
-nnoremap <leader>ga :!git add<CR>
+nnoremap <leader>ga :!git add %<CR>
 nnoremap <leader>gc :!git commit<CR>
 nnoremap <leader>gp :!git pull<CR>
 nnoremap <leader>gps :!git push<CR>
 nnoremap <leader>gl :!git log<CR>
 nnoremap <leader>glp :!git log -p<CR>
 nnoremap <leader>gls :!git log --stat<CR>
-nnoremap <leader>gd :!git diff<CR>
+nnoremap <leader>gd :!git diff %<CR>
 nnoremap <leader>gdc :!git diff --cached<CR>
 nnoremap <leader>gre :!git restore<CR>
+" Git Commit + Push shortcut (gcp)
+command! Gcp call GitCommitPush()
+function! GitCommitPush()
+  let msg = input("Commit message: ")
+  if empty(msg)
+    echo "Commit cancelled: empty message"
+    return
+  endif
+
+  execute "!git add . && git commit -m " . shellescape(msg) . " && git push"
+endfunction
+
+" Optional: map it to a key combo too (leader g)
+nnoremap <Leader>gcp :Gcp<CR>
+
