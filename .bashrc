@@ -23,12 +23,12 @@ alias more='wls.exe ~'
 alias dot='cd ~/dotfiles'
 alias crv='cd ~/my_projects/cryptorv'
 alias crv2='streamlit run ~/my_projects/cryptorv/home.py'
+alias crd='cd ~/my_projects/cryptodash'
 
 # envs
 # alias activ='source ~/.virtualenvs/cryptorv/bin/activate'
 alias e1='conda activate cryptorv'
 alias base='conda activate base'
-
 
 # Common aliases
 alias ll='ls -alF'
@@ -36,6 +36,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias grep='grep --color=auto'
 alias cls='clear'
+alias vim='nvim'
 
 # Git aliases
 alias gs='git status'

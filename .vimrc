@@ -116,6 +116,13 @@ nnoremap <leader>nh :nohlsearch<CR>
 nmap <leader>f :Explore<CR>
 nmap <leader>F :edit<CR>
 
+" Buffer navigation
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+
+nnoremap <leader>T :tab split<CR>
+nnoremap <leader>t :tab tag <C-r><C-w><CR>
+
 " =====================================================
 " Python run mappings (buffer-local)
 " =====================================================
@@ -124,6 +131,9 @@ autocmd FileType python nnoremap <buffer> <leader>dd :w<CR>:!clear && ipython --
 autocmd FileType python nnoremap <buffer> <leader>bb Obreakpoint()<ESC>
 
 nnoremap <leader>bl :!black --skip-string-normalization --line-length=80 %<CR>
+" Run Ruff and show errors in quickfix
+nnoremap <leader>rf :silent! cexpr system('ruff check --quiet ' . expand('%'))<CR>:copen<CR>
+
 
 " =====================================================
 " Yank / Clipboard
