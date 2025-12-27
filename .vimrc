@@ -123,6 +123,7 @@ nnoremap ]b :bnext<CR>
 nnoremap <leader>T :tab split<CR>
 nnoremap <leader>t :tab tag <C-r><C-w><CR>
 
+
 " =====================================================
 " Python run mappings (buffer-local)
 " =====================================================
@@ -134,6 +135,8 @@ nnoremap <leader>bl :!black --skip-string-normalization --line-length=80 %<CR>
 " Run Ruff and show errors in quickfix
 nnoremap <leader>rf :silent! cexpr system('ruff check --quiet ' . expand('%'))<CR>:copen<CR>
 
+" Comment selected lines
+vmap <C-_> :s/^/#/<CR>:noh<CR>
 
 " =====================================================
 " Yank / Clipboard
