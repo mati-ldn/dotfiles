@@ -52,6 +52,10 @@ Plugin 'vim-airline/vim-airline-themes'
 " Tmux integration
 Plugin 'jpalardy/vim-slime'
 
+Plugin 'benmills/vimux'
+Plugin 'greghor/vim-pyShell'
+Plugin 'julienr/vim-cellmode'
+
 " Completion (optional)
 " Plugin 'ycm-core/YouCompleteMe'
 
@@ -246,3 +250,17 @@ function! GitCommitPush()
 endfunction
 nnoremap <Leader>gcp :Gcp<CR>
 
+" ipython-shell
+noremap ,ss :call StartPyShell()<CR>
+noremap ,sk :call StopPyShell()<CR>
+" code execution
+nnoremap ,l  :call PyShellSendLine()<CR>
+noremap <silent> <C-n> :call RunTmuxPythonCell(0)<CR>
+noremap <C-a> :call RunTmuxPythonAllCellsAbove()<CR>
+
+nnoremap ,h :call PyShellSendKey("<C-R><C-W>.head()\r")<CR>
+nnoremap ,c :call PyShellSendKey("<C-R><C-W>.columns\r")<CR>
+nnoremap ,d :call PyShellSendKey("<C-R><C-W>.describe()\r")<CR>
+nnoremap ,dt :call PyShellSendKey("<C-R><C-W>.dtypes\r")<CR>
+nnoremap ,r :call PyShellSendKey(%)<CR>
+nnoremap ,ll :call PyShellSendMultiLine<CR>
