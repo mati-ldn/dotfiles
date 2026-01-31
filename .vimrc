@@ -250,6 +250,8 @@ function! GitCommitPush()
 endfunction
 nnoremap <Leader>gcp :Gcp<CR>
 
+nnoremap gg :terminal lazygit<CR>
+
 " ipython-shell
 noremap ,ss :call StartPyShell()<CR>
 noremap ,sk :call StopPyShell()<CR>
